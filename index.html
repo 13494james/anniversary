@@ -1,10 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <title>Anniversary</title>
+<meta charset="UTF-8">
+<title>For Fah 💖</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff9ecf,#ffcce6);
+    color:white;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* หน้าเปิด */
+#startScreen{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#ff7eb3,#ff758c);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+input{
+    padding:10px;
+    border-radius:20px;
+    border:none;
+    margin-top:10px;
+    text-align:center;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:white;
+    color:#ff4da6;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+.card{
+    margin:40px auto;
+    width:90%;
+    max-width:350px;
+    background: rgba(255,255,255,0.2);
+    padding:25px;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
+    display:none;
+}
+
+img{
+    width:100%;
+    border-radius:20px;
+    margin-top:15px;
+}
+
+.hidden{display:none;}
+
+.heart{
+    position:absolute;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform: translateY(100vh); opacity:1;}
+    100%{transform: translateY(-10vh); opacity:0;}
+}
+</style>
 </head>
+
 <body>
-    <h1>Welcome to the Anniversary Page!</h1>
-    <p>This is the GitHub Pages site for the anniversary repository.</p>
+
+<!-- หน้าเริ่ม -->
+<div id="startScreen">
+    <h1>💖 กดเริ่มรัก 💖</h1>
+    <input type="password" id="pass" placeholder="ใส่รหัสวันสำคัญ">
+    <button onclick="checkPass()">เริ่มเลย 💕</button>
+</div>
+
+<!-- เพลง -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- เนื้อหาหลัก -->
+<div class="card" id="mainContent">
+    <h1>Happy Anniversary 💖</h1>
+    <h2>Fah 💕</h2>
+    <h3 id="count"></h3>
+
+    <img id="photo" src="pic1.jpg">
+
+    <button onclick="showMessage()">อ่านข้อความลับ 💌</button>
+
+    <p id="message" class="hidden">
+        ตั้งแต่ 17 กุมภาพันธ์ 2566  
+        ทุกวินาทีที่มีเธอคือความสุขที่สุด 💖  
+        ขอบคุณที่รักกันนะ Fah  
+        ขอให้เรามีกันไปทุกปีเลย 💕
+    </p>
+</div>
+
+<script>
+function checkPass(){
+    let password = document.getElementById("pass").value;
+    if(password === "170266"){
+        document.getElementById("startScreen").style.display="none";
+        document.getElementById("mainContent").style.display="block";
+        document.getElementById("bgMusic").play();
+        startEffects();
+    }else{
+        alert("รหัสไม่ถูกต้องนะ 💔");
+    }
+}
+
+let startDate = new Date("2023-02-17");
+let today = new Date();
+let diff = today - startDate;
+let days = Math.floor(diff / (1000*60*60*24));
+document.getElementById("count").innerHTML =
+"เราคบกันมาแล้ว " + days + " วัน ❤️";
+
+let images = ["pic1.jpg","pic2.jpg","pic3.jpg"];
+let index = 0;
+
+setInterval(()=>{
+    index = (index + 1) % images.length;
+    document.getElementById("photo").src = images[index];
+},3000);
+
+function showMessage(){
+    document.getElementById("message").classList.remove("hidden");
+}
+
+/* เอฟเฟกต์หัวใจ + พลุ */
+function startEffects(){
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.fontSize = (Math.random()*20+15) + "px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+
+    setInterval(()=>{
+        alert("🎆 รัก Fah ที่สุดเลย 🎆");
+    },20000);
+}
+</script>
+
 </body>
 </html>
